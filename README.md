@@ -1,5 +1,19 @@
 # Analysis
 
+## What to learn
+
+1. Difference Logic (Jest) vs. Unit testing. (Enzyme, Testing Library) ✅
+1. Difference between testing UI code (Enzyme) vs. results on the screen. (Testing Library) ✅
+1. Analyze the testing files installed by default on `npx create-react-app`. ✅
+1. Theory of the 3As in Testing: Arrange, Act, Assert. ✅
+1. Analyze the default test in the Create React App project. ✅
+1. Write a test as TDD. ✅
+1. Mock (simulate) a click event using Testing Library `fireEvent`. ✅
+1. Mock global events.
+1. Mock modules. (your separated function files)
+
+---
+
 ## Comparisson between the React useEffect hook method vs. the Jest test method
 
 ### React useEffect method
@@ -28,3 +42,5 @@ Test arguments:
 
 - Expect argument: A variable to be compare to something.
 - Expect .dot notation: The action to compare against the variable. In other words, this is the question we ask/
+
+---
