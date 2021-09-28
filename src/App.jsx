@@ -12,14 +12,10 @@ export default function App() {
   // Methods
   useEffect(() => {
     const rawData = localStorage.getItem("todo");
-    let data = [];
 
-    if (rawData !== null) {
-      data = JSON.parse(rawData);
-    } else {
-      data = [];
-    }
+    const backup = [];
 
+    let data = JSON.parse(rawData) ?? backup;
     setTodo(data);
   }, [setTodo]);
 
@@ -40,7 +36,8 @@ export default function App() {
       {toggleMessage && <p>Hello world</p>}
 
       {/* Rendered items */}
-      <ul>{TodoList}</ul>
+      {todo.length > 0 && <ul>{TodoList}</ul>}
+      {todo.length === 0 && <p>Sorry no items found</p>}
     </div>
   );
 }

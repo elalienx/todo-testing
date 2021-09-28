@@ -76,9 +76,39 @@ test("The local sotrage key do have information (returns >1 items)", () => {
   expect(itemElement2).toBeInTheDocument();
 });
 
-// test("The local storage key does not have information (returns 0 items)", () => {});
+test("The local storage key does not have information (returns 0 items)", () => {
+  // Arrange
+  const fakeLocalStorageData = [];
 
-// test("The local storage key is undefined", () => {});
+  // localStorage.getItem()
+  Storage.prototype.getItem = jest.fn(() => {
+    return JSON.stringify(fakeLocalStorageData); // []
+  });
+
+  render(<App />);
+
+  // Act
+  const errorMessage = screen.getByText(/sorry no items found/i);
+
+  // Assert
+  expect(errorMessage).toBeInTheDocument();
+});
+
+test("The local storage key is null", () => {
+  // Arrange
+  const fakeLocalStorageData = null;
+
+  // localStorage.getItem()
+  Storage.prototype.getItem = jest.fn(() => fakeLocalStorageData); // null;
+
+  render(<App />);
+
+  // Act
+  const errorMessage = screen.getByText(/sorry no items found/i);
+
+  // Assert
+  expect(errorMessage).toBeInTheDocument();
+});
 
 /**
  *

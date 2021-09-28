@@ -9,7 +9,7 @@
 1. Analyze the default test in the Create React App project. ✅
 1. Write a test as TDD. ✅
 1. Mock (simulate) a click event using Testing Library `fireEvent`. ✅
-1. Mock global events.
+1. Mock global events by using `jest.fn()`. ✅
 1. Mock modules. (your separated function files)
 
 ---
@@ -55,10 +55,27 @@ Test arguments:
 
 ## Mocking global functions
 
+Not 100% reliable. (i will test it further later)
 First of all enable this piece of code inside `package.json`
 
 ```
   "jest": {
     "resetMocks": false
   },
+```
+
+## Nullish coalescing operator
+
+[Link](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Nullish_coalescing_operator)
+
+The nullish coalescing operator (??) is a logical operator that returns its right-hand side operand when its left-hand side operand is null or undefined, and otherwise returns its left-hand side operand.
+
+```
+if (JSON.parse(rawData) === null) {
+  data = backup;
+} else if (JSON.parse(rawData) === undefined) {
+  data = backup;
+} else {
+  data = JSON.parse(rawData);
+}
 ```
