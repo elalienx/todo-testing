@@ -44,3 +44,21 @@ Test arguments:
 - Expect .dot notation: The action to compare against the variable. In other words, this is the question we ask/
 
 ---
+
+---
+
+## Jest mock method
+
+`jest.fn( ()=>{} )`
+
+- Argument is an arrow function that needs to return a value
+
+## Mocking global functions
+
+First of all enable this piece of code inside `package.json`
+
+```
+  "jest": {
+    "resetMocks": false
+  },
+```

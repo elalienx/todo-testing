@@ -10,9 +10,10 @@ import App from "./App"; // the components that we import in order to run a test
 test("Renders the link for learning React on the screen", () => {
   // Arrange
   render(<App />); // ⬅️ belongs to TL
+  const linkElement = screen.getByText(/learn react/i); // ⬅️ belongs to TL
 
   // Act
-  const linkElement = screen.getByText(/learn react/i); // ⬅️ belongs to TL
+  // no act is neccesary, App renders the link automatically withouth user input
 
   // Assert
   expect(linkElement).toBeInTheDocument(); // ⬅️ belong to Jest
@@ -33,18 +34,51 @@ test("Renders the Show message button on the screen", () => {
 test("Shows the message Hello world when the button is press", () => {
   // Arrange
   render(<App />);
-
-  // Act
-  // First, we create and click it
   const buttonElement = screen.getByText(/show message/i);
-  fireEvent.click(buttonElement); // fireEvent, click onto whom?
 
-  // Second, after the button was click, check if the new text appeared on the screen
+  // Act (Actions and consequences/side effects)
+  fireEvent.click(buttonElement);
   const greetingElement = screen.getByText(/hello world/i);
 
   // Assert
   expect(greetingElement).toBeInTheDocument();
 });
+
+// Mocking global methods (localStorage, alert)
+test("The local sotrage key do have information (returns >1 items)", () => {
+  // Arrange
+  const fakeLocalStorageData = [
+    {
+      id: 1,
+      name: "Sofa",
+      checked: false,
+    },
+    {
+      id: 2,
+      name: "TV stand",
+      checked: false,
+    },
+  ];
+
+  // localStorage.getItem()
+  Storage.prototype.getItem = jest.fn(() => {
+    return JSON.stringify(fakeLocalStorageData); // "[ {id:1, name: 'sofa', checked:false} ]"
+  });
+
+  render(<App />);
+
+  // Act
+  const itemElement1 = screen.getByText(/sofa/i);
+  const itemElement2 = screen.getByText(/tv stand/i);
+
+  // Assert
+  expect(itemElement1).toBeInTheDocument();
+  expect(itemElement2).toBeInTheDocument();
+});
+
+// test("The local storage key does not have information (returns 0 items)", () => {});
+
+// test("The local storage key is undefined", () => {});
 
 /**
  *

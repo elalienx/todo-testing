@@ -1,12 +1,30 @@
 // NPM packages
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+// Project files
+import TodoItem from "./components/TodoItem";
 
 export default function App() {
   // Local state
   const [toggleMessage, setToggleMessage] = useState(false);
+  const [todo, setTodo] = useState([]);
 
   // Methods
-  // Make this pure
+  useEffect(() => {
+    const rawData = localStorage.getItem("todo");
+    let data = [];
+
+    if (rawData !== null) {
+      data = JSON.parse(rawData);
+    } else {
+      data = [];
+    }
+
+    setTodo(data);
+  }, [setTodo]);
+
+  // Components
+  const TodoList = todo.map((item) => <TodoItem key={item.id} item={item} />);
 
   return (
     <div className="App">
@@ -20,6 +38,9 @@ export default function App() {
         Show message
       </button>
       {toggleMessage && <p>Hello world</p>}
+
+      {/* Rendered items */}
+      <ul>{TodoList}</ul>
     </div>
   );
 }
